@@ -1,0 +1,1 @@
+export type LoaderType<T> = (page: number) => T[];

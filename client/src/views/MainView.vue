@@ -1,12 +1,16 @@
 <script setup lang="ts">
 
+import TheChat from '@/components/chat/TheChat.vue';
+import TheGame from '@/components/game/TheGame.vue';
+
+
 </script>
 
 <template>
-  <div class="grid grid-cols-2 grid-rows-1 gap-4">
-    <div class="">Chat</div>
-    <div class="">Game</div>
-  </div>
+  <main class="w-screen h-screen flex justify-stretch items-stretch">
+	  <TheChat />
+	  <TheGame />
+  </main>
 </template>
 
 <style scoped>

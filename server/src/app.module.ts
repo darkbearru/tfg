@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { ChatService } from './chat/chat.service';
 import { ChatGateway } from './chat/chat.gateway';
 import { ChatModule } from './chat/chat.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
 	imports: [
@@ -19,6 +20,7 @@ import { ChatModule } from './chat/chat.module';
 		UsersModule,
 		AuthModule,
 		ChatModule,
+		FilesModule,
 	],
 	controllers: [],
 	providers: [ChatService, ChatGateway],

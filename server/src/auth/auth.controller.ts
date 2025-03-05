@@ -15,34 +15,41 @@ import { LoginDto } from './dto/login.dto';
 import { Request } from 'express';
 import { AccessTokenGuard } from './guards/accessToken.guard';
 import { RefreshTokenGuard } from './guards/refreshToken.guard';
+import { SITE_CONTROLLERS, SITE_ROUTES } from '../shared/constants/site-routes.constants';
+import { CreateUserDto } from '../users/dto/create-user.dto';
 
-@Controller('auth')
+@Controller(SITE_CONTROLLERS.AUTH)
 export class AuthController {
 	constructor(private readonly authService: AuthService) {}
 
 	@UsePipes(new ValidationPipe())
-	@Post('login')
+	@Post(SITE_ROUTES.LOGIN)
 	@HttpCode(HttpStatus.OK)
 	async login(@Body() dto: LoginDto) {
 		return await this.authService.login(dto);
 	}
 
+	@UsePipes(new ValidationPipe())
+	@Post(SITE_ROUTES.REGISTER)
+	async register(@Body() dto: CreateUserDto) {
+		return await this.authService.register(dto);
+	}
+
 	@UseGuards(AccessTokenGuard)
-	@Get('logout')
+	@Get(SITE_ROUTES.LOGOUT)
 	async logout(@Req() req: Request) {
 		return await this.authService.logout(req.user['id']);
 	}
 
 	@UseGuards(AccessTokenGuard)
-	@Get('check')
-	async check(@Req() req: Request) {
-		console.log('Checking completed');
-		console.log(req.user);
-		return 'OK';
+	@Get(SITE_ROUTES.CHECK)
+	async check() {
+		//@Req() req: Request
+		return { message: 'OK', statusCode: HttpStatus.OK };
 	}
 
 	@UseGuards(RefreshTokenGuard)
-	@Get('refresh')
+	@Get(SITE_ROUTES.REFRESH)
 	refreshTokens(@Req() req: Request) {
 		const refreshToken = req.get('Authorization').replace('Bearer', '').trim();
 		const userId = req.user['id'];

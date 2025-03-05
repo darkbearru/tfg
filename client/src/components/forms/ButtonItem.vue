@@ -9,7 +9,7 @@ const { title, type="button" } = defineProps<ButtonItemProps>()
 
 <template>
   <div class="text-right">
-    <button class="mt-2 px-6 py-1 rounded bg-indigo-700 text-indigo-50" :type="type">{{ title }}</button>
+    <button class="px-6 py-1 rounded bg-indigo-700 border border-indigo-700 hover:border-indigo-600 hover:bg-indigo-600 text-indigo-50 cursor-pointer" :type="type">{{ title }}</button>
   </div>
 </template>
 

@@ -14,14 +14,16 @@ async function makeRequest(url: string, method: string, body?: never, token?: st
       },
       body: JSON.stringify(body),
     };
-    if (token) {
-      requestOptions.headers = {
+  }
+  if (token) {
+    requestOptions = {
+      ...requestOptions,
+      headers: {
         ...requestOptions.headers,
         Authorization: `Bearer ${token}`,
-      }
-    }
+      },
+    };
   }
-  console.log(requestOptions);
 
   try {
     const request = await fetch(`http://localhost:3000/api/${url}`, requestOptions);

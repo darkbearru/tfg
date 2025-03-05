@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LoginForm from '@/components/forms/LoginForm.vue'
+import LoginForm from '@/components/auth/LoginForm.vue'
 import { useAuthStore } from '@/stores/auth.ts'
 import router from '@/router'
 import { onMounted } from 'vue'

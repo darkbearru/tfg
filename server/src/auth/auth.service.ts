@@ -13,6 +13,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { JwtPayload, JwtResponse } from '../types/jwt.types';
 import { UserDocument } from '../users/model/user.model';
+import { CreateUserDto } from '../users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -22,9 +23,14 @@ export class AuthService {
 		private readonly jwtService: JwtService,
 	) {}
 
-	async login({ login, password }: LoginDto) {
+	async login({ login, password }: LoginDto): Promise<JwtResponse> {
 		const payload: JwtPayload = await this.validateUser(login, password);
 		return this.makeTokensAndPayload(payload);
+	}
+
+	async register(dto: CreateUserDto): Promise<JwtResponse> {
+		const user = await this.usersService.create(dto);
+		return this.makeTokensAndPayload(user);
 	}
 
 	async logout(id: string) {

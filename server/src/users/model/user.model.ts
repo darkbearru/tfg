@@ -3,6 +3,17 @@ import { HydratedDocument } from 'mongoose';
 
 export type UserDocument = HydratedDocument<UserModel>;
 
+export class UserStats {
+	@Prop()
+	gamesWin: number;
+
+	@Prop()
+	gamesLose: number;
+
+	@Prop()
+	messagesTotal: number;
+}
+
 @Schema({ timestamps: true, _id: true })
 export class UserModel {
 	@Prop({ unique: true })
@@ -12,6 +23,9 @@ export class UserModel {
 	name: string;
 
 	@Prop()
+	imageUrl: string;
+
+	@Prop()
 	passwordHash: string;
 
 	@Prop()
@@ -19,6 +33,9 @@ export class UserModel {
 
 	@Prop()
 	refreshToken: string;
+
+	@Prop({ type: () => UserStats, _id: false })
+	stats: UserStats;
 }
 
 export const UserSchema = SchemaFactory.createForClass(UserModel);
